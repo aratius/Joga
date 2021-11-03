@@ -1,5 +1,6 @@
 use std::io;  // ユーザ入力を受け付ける能力などの実用的な機能の多くを使用することができる
-use rand::Rng;
+use std::cmp::Ordering;
+use rand::Rng;  // rand クレート
 
 // ユーザに予想を入力してもらい、それを出力するコード
 fn main() {
@@ -24,7 +25,17 @@ fn main() {
         // expectはResultオブジェクトがErrだった場合に、プログラムをクラッシュさせ、引数として渡されたメッセージを表示する
         .expect("Failed to read line");
 
+    // 数値にパース できなければエラー返す
+    let guess: u32 = guess.trim().parse()
+        .expect("Please type a number");
+
     // println!マクロのプレースホルダー
     println!("You guessed: {}", guess);
+
+    match guess.cmp(&secret_number) {
+        Ordering::Less => println!("Too small"),
+        Ordering::Greater => println!("Too big"),
+        Ordering::Equal => println!("You win")
+    }
 
 }
