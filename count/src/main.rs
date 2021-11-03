@@ -27,12 +27,16 @@ fn main() {
         .expect("Failed to read line");
 
         // 数値にパース できなければエラー返す
-        let guess: u32 = guess.trim().parse()
-        .expect("Please type a number");
+        // エラーが出たら何もせずcontinue
+        let guess: u32 = guess.trim().parse() {
+            Ok(num) => num,
+            Err(_) => continue
+        };
 
         // println!マクロのプレースホルダー
         println!("You guessed: {}", guess);
 
+        // 数値比較 正解したらbreak
         match guess.cmp(&secret_number) {
             Ordering::Less => println!("Too small"),
             Ordering::Greater => println!("Too big"),
