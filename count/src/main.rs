@@ -11,31 +11,33 @@ fn main() {
     let secret_number = rand::thread_rng().gen_range(1, 101);
     println!("The secrest number is: {}", secret_number);
 
-    println!("Please input your guess");
+    loop {
+        println!("Please input your guess");
 
-    // :: -> new が String型の関連関数であることを表す
-    // 関連関数　-> 型に対して実装された関数 （static method)
-    let mut guess = String::new();
+        // :: -> new が String型の関連関数であることを表す
+        // 関連関数　-> 型に対して実装された関数 （static method)
+        let mut guess = String::new();
 
-    // stg::io::Stdinオブジェクトを返す -> ターミナルへの標準入力へのハンドル
-    // & -> 参照であることを示す
-    io::stdin().read_line(&mut guess)
+        // stg::io::Stdinオブジェクトを返す -> ターミナルへの標準入力へのハンドル
+        // & -> 参照であることを示す
+        io::stdin().read_line(&mut guess)
         // Result型を返すメソッド
         // Result型は列挙型（enum） OkかErrをもつ
         // expectはResultオブジェクトがErrだった場合に、プログラムをクラッシュさせ、引数として渡されたメッセージを表示する
         .expect("Failed to read line");
 
-    // 数値にパース できなければエラー返す
-    let guess: u32 = guess.trim().parse()
+        // 数値にパース できなければエラー返す
+        let guess: u32 = guess.trim().parse()
         .expect("Please type a number");
 
-    // println!マクロのプレースホルダー
-    println!("You guessed: {}", guess);
+        // println!マクロのプレースホルダー
+        println!("You guessed: {}", guess);
 
-    match guess.cmp(&secret_number) {
-        Ordering::Less => println!("Too small"),
-        Ordering::Greater => println!("Too big"),
-        Ordering::Equal => println!("You win")
+        match guess.cmp(&secret_number) {
+            Ordering::Less => println!("Too small"),
+            Ordering::Greater => println!("Too big"),
+            Ordering::Equal => println!("You win")
+        }
     }
 
 }
