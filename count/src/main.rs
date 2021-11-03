@@ -9,7 +9,7 @@ fn main() {
     // 乱数を生成
     // rand::thread_rng -> 乱数生成器を返却
     let secret_number = rand::thread_rng().gen_range(1, 101);
-    println!("The secrest number is: {}", secret_number);
+    // println!("The secrest number is: {}", secret_number);
 
     loop {
         println!("Please input your guess");
@@ -28,9 +28,9 @@ fn main() {
 
         // 数値にパース できなければエラー返す
         // エラーが出たら何もせずcontinue
-        let guess: u32 = guess.trim().parse() {
+        let guess: u32 = match guess.trim().parse() {
             Ok(num) => num,
-            Err(_) => continue
+            Err(_) => continue,
         };
 
         // println!マクロのプレースホルダー
@@ -43,7 +43,7 @@ fn main() {
             Ordering::Equal => {
                 println!("You win");
                 break;
-            }
+            },
         }
     }
 
